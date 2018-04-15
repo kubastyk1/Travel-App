@@ -1,0 +1,81 @@
+.place {
+  cursor: pointer;
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+  transition: all 500ms ease-out;
+  margin-bottom: 30px;
+  min-width: 150px; }
+  .place:hover {
+    box-shadow: 0px 13px 21px -5px rgba(0, 0, 0, 0.2); }
+    .place:hover .image_overlay {
+      opacity: 0.7; }
+    .place:hover .view_details {
+      opacity: 1;
+      width: 152px;
+      font-size: 15px;
+      margin-left: -75px;
+      top: 30%;
+      transition: all 200ms ease-out; }
+  .place img {
+    height: 180px; }
+  .place.compare .image_overlay {
+    opacity: 0.7; }
+  .place .stats-container {
+    background: #fff;
+    padding: 23px 15px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    text-align: center; }
+    .place .stats-container .place_name {
+      font-size: 22px;
+      color: #393c45; }
+    .place .stats-container p {
+      font-size: 16px;
+      color: #b1b1b3;
+      margin: 0; }
+  .place .image_overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #00B4E9;
+    opacity: 0;
+    transition: all 200ms ease-out; }
+  .place .view_details {
+    position: absolute;
+    top: 72px;
+    left: 50%;
+    margin-left: -85px;
+    border: 2px solid #fff;
+    color: #fff;
+    font-size: 19px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 10px 0;
+    width: 172px;
+    opacity: 0;
+    transition: all 200ms ease-out; }
+    .place .view_details:hover {
+      background: #fff;
+      color: #00B4E9;
+      cursor: pointer; }
+    .place .view_details:hover#ATTRACTION {
+      color: #48cfad; }
+    .place .view_details:hover#RESTAURANT {
+      color: #f7d25b; }
+
+.liked {
+  box-shadow: 0px 13px 21px -5px rgba(0, 0, 0, 0.2); }
+  .liked .image_overlay {
+    opacity: 0.7; }
+  .liked .view_details {
+    opacity: 0;
+    width: 152px;
+    font-size: 15px;
+    margin-left: -75px;
+    top: 30%;
+    transition: all 200ms ease-out; }

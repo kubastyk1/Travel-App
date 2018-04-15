@@ -1,0 +1,90 @@
+@import url(//maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css);
+.header {
+  background-color: white;
+  border-bottom: 1px solid #00B4E9;
+  height: 50px;
+  position: relative;
+  display: -webkit-box;
+  min-width: 300px; }
+  .header img {
+    height: 100%; }
+  .header .login-icon {
+    height: 50%;
+    position: absolute;
+    right: 13px;
+    margin-top: 13px; }
+  .header .dropdown {
+    right: -280%; }
+    .header .dropdown .btn, .header .dropdown .dropdown-menu {
+      font-size: 14px !important; }
+
+.dropdown-left {
+  float: left; }
+
+.dropdown-right {
+  float: right; }
+
+.searchBar {
+  width: 50%;
+  height: 100%;
+  border: none;
+  position: absolute;
+  margin-left: 20%;
+  font-family: 'open sans',sans-serif,arial;
+  font-size: 18px; }
+  .searchBar:focus {
+    outline: none; }
+
+.split-button-pull-right {
+  background-image: url("http://iconshow.me/media/images/ui/ios7-icons/png/256/plus-empty.png"); }
+
+.dropdown-toggle::after {
+  display: none !important; }
+
+@media (max-width: 300px) {
+  .searchBar {
+    margin-left: 10%; } }
+
+@media (max-width: 2000px) {
+  .dropdown {
+    right: -300% !important; } }
+
+@media (max-width: 1400px) {
+  .dropdown {
+    right: -230% !important; } }
+
+@media (max-width: 1200px) {
+  .dropdown {
+    right: -200% !important; } }
+
+@media (max-width: 1100px) {
+  .dropdown {
+    right: -180% !important; } }
+
+@media (max-width: 1000px) {
+  .dropdown {
+    right: -160% !important; } }
+
+@media (max-width: 900px) {
+  .dropdown {
+    right: -135% !important; } }
+
+@media (max-width: 830px) {
+  .dropdown {
+    right: -100% !important; } }
+
+@media (max-width: 700px) {
+  .dropdown {
+    right: -80% !important; } }
+
+@media (max-width: 600px) {
+  .dropdown {
+    right: -60% !important; } }
+
+@media (max-width: 500px) {
+  .dropdown {
+    right: -40% !important; } }
+
+@media (max-width: 500px) {
+  .dropdown {
+    right: -15% !important; } }

@@ -1,0 +1,66 @@
+@import '../../styles/_variables.scss';
+@import url(//maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css);
+
+$image-overlay-opacity: 0.7;
+$place-main-color: $green;
+$blue-logo-color: $main-menu-blue;
+
+.header {
+  background-color: white;
+  border-bottom: 1px solid $blue-logo-color;
+  height: 50px;
+  position: relative;
+  display: -webkit-box;
+  min-width: 300px;
+
+  img {
+    height: 100%;
+  }
+
+  .login-icon {
+    height: 50%;
+    position: absolute;
+    right: 13px;
+    margin-top: 13px;
+  }
+
+  .dropdown {
+    right: -180%;
+    .btn, .dropdown-menu  {
+      font-size: 14px !important;
+    }
+
+  }
+}
+
+.row {
+  display: flex !important;
+}
+
+.searchBar {
+    width: 50%;
+    height: 100%;
+    border: none;
+    position: absolute;
+    margin-left: 20%;
+    font-family: 'open sans',sans-serif,arial;
+    font-size: 18px;
+
+    &:focus {
+      outline: none;
+    }
+}
+
+.split-button-pull-right {
+  background-image: url("http://iconshow.me/media/images/ui/ios7-icons/png/256/plus-empty.png");
+}
+
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+@media (max-width: 300px) {
+    .searchBar {
+      margin-left: 10%;
+    }
+}
