@@ -1,20 +1,16 @@
-import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import $ from 'jquery'
+
 import * as types from '../../constants/types'
 import './styles.css'
 import { HeaderBar, Place, Travel } from '../'
-import $ from 'jquery'
 
 var travels = [];
+export default class TravelList extends Component {
+  state = {}
 
-class TravelList extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  componentWillMount() {
+  componentWillMount = () => {
     $.getJSON( "/travel/travels", ( data ) => {
       travels = data;
       this.setState();
@@ -28,6 +24,7 @@ class TravelList extends Component {
         rows.push(<Travel key={travel.id} travel={travel} />);
       }.bind(this));
     }
+
     return (
       <div>
         <HeaderBar />
@@ -37,6 +34,4 @@ class TravelList extends Component {
       </div>
     );
   };
-};
-
-export default TravelList
+}
