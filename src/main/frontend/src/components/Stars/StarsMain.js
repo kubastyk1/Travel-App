@@ -1,23 +1,22 @@
-import React, {Component} from 'react'
-import './styles.css'
+import React, { Component } from 'react'
 import $ from 'jquery'
+import { string, object, number, bool, array, oneOfType } from 'prop-types'
 
-class Stars extends Component {
+import './styles.css'
 
-  constructor(props) {
-    super(props);
-    this.state = { starsValue: false};
+export default class Stars extends Component {
+  state = { starsValue: false }
+
+  static propTypes = {
+    starsValue: number,
+    isActivated: bool
   }
 
-  transfromNumberToId(number) {
-    if(number.toString().length === 1) {
-      return "astar" + number;
-    } else {
-      return "astar" + number.toString().charAt(0) + "-half";
-    }
+  transfromNumberToId = (number) => {
+    return number.toString().length === 1 ?  "astar" + number : "astar" + number.toString().charAt(0) + "-half"
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     if(this.props.starsValue) {
       var starId = this.transfromNumberToId(this.props.starsValue);
       document.querySelector(".rating-disabled > #" + starId).checked = true;
@@ -44,4 +43,3 @@ class Stars extends Component {
     )
   }
 }
-export default Stars
