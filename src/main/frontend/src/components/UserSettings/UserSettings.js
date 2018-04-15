@@ -1,25 +1,27 @@
 import {Link} from 'react-router-dom'
 import React, { Component } from 'react'
-import * as types from '../../constants/types'
-import './styles.css'
-import { HeaderBar } from '../'
 import $ from 'jquery'
 import { Form, FormGroup, ButtonGroup, ControlLabel, Button, FormControl, Checkbox, Col} from 'react-bootstrap';
 
-class UserSettings extends Component {
+import * as types from '../../constants/types'
+import './styles.css'
+import { HeaderBar } from '../'
+
+/*TODO Pass proper parameter of userId */
+export default class UserSettings extends Component {
+  state = { userId: 1 }
+
   constructor(props) {
     super(props);
-    this.state = {userId: 3};
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
+  handleChange = (e) => {
     this.setState({userId: 3});
   }
 
-  handleSubmit(event) {
+  handleSubmit = (e) => {
     $.post("/travel/updateUserSettings", this.state, ( data ) => {
       if (data === true) {
         this.props.history.push("home");
@@ -40,7 +42,8 @@ class UserSettings extends Component {
               Password
             </Col>
             <Col md={8}>
-              <FormControl type="text" placeholder="Password" onChange={(e) => this.setState({ password: passwordHash.generate(e.target.value) })} required/>
+              <FormControl type="text" placeholder="Password"
+                onChange={(e) => this.setState({ password: passwordHash.generate(e.target.value) })} required/>
             </Col>
           </FormGroup>
 
@@ -49,7 +52,8 @@ class UserSettings extends Component {
               Image
             </Col>
             <Col md={8}>
-              <FormControl type="url" placeholder="Image" onChange={(e) => this.setState({ image: e.target.value })}/>
+              <FormControl type="url" placeholder="Image"
+                onChange={(e) => this.setState({ image: e.target.value })}/>
             </Col>
           </FormGroup>
 
@@ -64,6 +68,4 @@ class UserSettings extends Component {
       </div>
     );
   }
-};
-
-export default UserSettings
+}
