@@ -5,11 +5,10 @@ export const PLACE_RESTAURANT = 'RESTAURANT'
 export const LOGIN = 'LOGIN'
 export const REGISTER = 'REGISTER'
 export const DEFAULT_IMAGE = '/defaultImage.jpg'
-//export const DEFAULT_IMAGE = 'https://i.pinimg.com/736x/fd/7f/9b/fd7f9b94cbee1feb4fd63eca09d9058c--flat-illustration-design-illustrations.jpg'
 export const DEFAULT_USER = '/defaultUser.jpg'
-//export const DEFAULT_USER = 'https://n6-img-fp.akamaized.net/free-icon/male-user-shadow_318-34042.jpg?size=338&ext=jpg'
 export const DEFAULT_LOGO = '/logo.svg'
-//export const DEFAULT_LOGO = 'http://www.travelchanneltv.pl/img/logos/logo.svg'
 export const DEFAULT_LOGIN = '/defaultLogin.png'
-//export const DEFAULT_LOGIN = 'https://maxcdn.icons8.com/Share/icon/User_Interface//login_rounded_right_filled1600.png'
 export const IS_LOGIN = true
+export const CATEGORY_BORDER_ALL = "5px solid #00B4E9"
+export const CATEGORY_BORDER_ATTRACTION = "5px solid #48cfad"
+export const CATEGORY_BORDER_RESTAURANT = "5px solid #f7d25b"
