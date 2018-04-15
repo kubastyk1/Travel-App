@@ -1,20 +1,16 @@
-import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import $ from 'jquery'
+
 import * as types from '../../constants/types'
 import './styles.css'
 import { HeaderBar, Place, Travel } from '../'
-import $ from 'jquery'
 
 var favorites = [];
+export default class FavoritesList extends Component {
+  state = {}
 
-class FavoritesList extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  componentWillMount() {
+  componentWillMount = () => {
     $.getJSON( "/travel/favorites", ( data ) => {
       favorites = data;
       this.setState();
@@ -37,6 +33,4 @@ class FavoritesList extends Component {
       </div>
     );
   };
-};
-
-export default FavoritesList
+}
