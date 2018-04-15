@@ -12,3 +12,6 @@ export const IS_LOGIN = true
 export const CATEGORY_BORDER_ALL = "5px solid #00B4E9"
 export const CATEGORY_BORDER_ATTRACTION = "5px solid #48cfad"
 export const CATEGORY_BORDER_RESTAURANT = "5px solid #f7d25b"
+export const ALL_BACKGROUND = "#00B4E9"
+export const ATTRACTION_BACKGROUND = "#48cfad"
+export const RESTAURANT_BACKGROUND = "#f7d25b"

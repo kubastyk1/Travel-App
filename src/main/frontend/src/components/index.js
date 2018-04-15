@@ -1,5 +1,5 @@
 import Compare from './Compare'
-import Place from './Place'
+import Place from './Place/Place'
 import City from './City'
 import Filter from './Filter/Filter'
 import PlaceDetails from './PlaceDetails'
