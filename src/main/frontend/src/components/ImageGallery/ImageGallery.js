@@ -1,29 +1,35 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { string, object, number, bool, array, oneOfType } from 'prop-types'
+
 import './styles.css'
 import * as types from '../../constants/types'
 
 var slideIndex = 1;
+export default class ImageGallery extends Component {
 
-class ImageGallery extends React.Component {
+  static propTypes = {
+    images: array
+  }
 
-  openModal() {
+  openModal = (e) => {
     this.refs.myModal.style.display = "block";
   }
 
-  closeModal() {
+  closeModal = (e) => {
     this.refs.myModal.style.display = "none";
   }
 
-  plusSlides(n) {
+  plusSlides = (n) => {
     this.showSlides(slideIndex += n);
   }
 
-  currentSlide(n) {
+  currentSlide = (n) => {
     this.openModal();
     this.showSlides(slideIndex = n);
+    this.showSlides();
   }
 
-  showSlides(n) {
+  showSlides = (n) =>  {
     var i;
     var slides = this.refs.mySlides;
     var dots = this.refs.demo;
@@ -33,29 +39,33 @@ class ImageGallery extends React.Component {
     for (i = 0; i < slides.children.length; i++) {
         slides.children[i].style.display = "none";
     }
-    slides.children[slideIndex-1].style.display = "block";
+    slides.children[slideIndex - 1].style.display = "block";
   }
 
-  getMainPageImages() {
-    var images = [];
-    if (this.props.images) {
-      images.push(
+  getMainPageImages = (e) => {
+    const { images } = this.props
+
+    var mainImages = [];
+    if (images) {
+      mainImages.push(
         <div key={0} className="column">
           <a onClick={() => {this.currentSlide(1)}} >
-            {this.props.images[0] ? <img src={this.props.images[0].imageUrl} className="hover-shadow cursor big-image" alt="Foto"/> :
+            {images[0] ? <img src={images[0].imageUrl} className="hover-shadow cursor big-image" alt="Foto"/> :
             <img src={types.DEFAULT_IMAGE} className="hover-shadow cursor big-image" alt="Foto"/>}
           </a>
         </div>
       )
     }
-    return images;
+    return mainImages;
   }
 
-  getSmallMainPageImages() {
-    var images = [];
-    if (this.props.images) {
-      this.props.images.forEach(function(image, index) {
-        images.push(
+  getSmallMainPageImages = (e) => {
+    const { images } = this.props
+
+    var smallImages = [];
+    if (images) {
+      images.forEach(function(image, index) {
+        smallImages.push(
           <div key={index} className="column">
             <a onClick={() => {this.currentSlide(index+1)}} >
               {index !== 0 ? (<img src={image.imageUrl} className="hover-shadow cursor small-image" alt="Foto"/>) : (null)}
@@ -64,23 +74,25 @@ class ImageGallery extends React.Component {
         )
       }.bind(this));
     }
-    return images;
+    return smallImages;
   }
 
-  getModalImages() {
-    var images = [];
-    if (this.props.images) {
-      if(this.props.images.length != 0) {
-        this.props.images.forEach(function(image, index) {
-          images.push(
+  getModalImages = (e) => {
+    const { images } = this.props
+
+    var modalImages = [];
+    if (images) {
+      if(images.length != 0) {
+        images.forEach(function(image, index) {
+          modalImages.push(
             <div className="mySlides" key={index}>
-              <div className="numbertext">{index+1} / {this.props.images.length}</div>
+              <div className="numbertext">{index+1} / {images.length}</div>
                 <img src={image.imageUrl} alt="Foto"/>
             </div>
           )
         }.bind(this));
       } else {
-        images.push(
+        modalImages.push(
           <div className="mySlides">
             <div className="numbertext">1</div>
               <img src={types.DEFAULT_IMAGE} alt="Foto"/>
@@ -88,21 +100,23 @@ class ImageGallery extends React.Component {
         )
       }
     }
-    return images;
+    return modalImages;
   }
 
-  getDemoImages() {
-    var images = [];
-    if (this.props.images) {
-      this.props.images.forEach(function(image, index) {
-        images.push(
+  getDemoImages = () => {
+    const { images } = this.props
+
+    var demoImages = [];
+    if (images) {
+      images.forEach(function(image, index) {
+        demoImages.push(
           <div className="miniature" key={index}>
             <img className="demo" src={image} onClick={() => {this.currentSlide(1)}} alt="Image description"/>
           </div>
         )
       }.bind(this));
     }
-    return images;
+    return demoImages;
   }
 
   render() {
@@ -129,7 +143,4 @@ class ImageGallery extends React.Component {
       </div>
     );
   };
-
 }
-
-export default ImageGallery
