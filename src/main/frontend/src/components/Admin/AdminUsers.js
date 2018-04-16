@@ -1,25 +1,30 @@
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import React, { Component } from 'react'
-import * as types from '../../constants/types'
-import './styles.css'
-import { HeaderBar } from '../'
 import $ from 'jquery'
 import { Form, FormGroup, ButtonGroup, Table, ControlLabel, Button, FormControl, Checkbox, Col} from 'react-bootstrap';
 
-class AdminUsers extends Component {
+import * as types from '../../constants/types'
+import './styles.css'
+import { HeaderBar } from '../'
+
+export default class AdminUsers extends Component {
+  state = {
+    data: [],
+    isAdmin: 0
+  }
+
   constructor(props) {
     super(props);
-    this.state = {data: [], isAdmin: 0};
 
     this.handleEdit = this.handleEdit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
 
-  handleEdit(userId) {
+  handleEdit = (userId) => {
     this.props.history.push("/admin/user/" + userId);
   }
 
-  handleDelete(data) {
+  handleDelete = (data) => {
     var sendData = {userId: data.userId};
     var dataToSend = {
       userId: data.userId
@@ -30,16 +35,12 @@ class AdminUsers extends Component {
       dataType: 'json',
       data: data,
       complete: function(data) {
-        if (data.responseJSON === true) {
-          this.setState({});
-        } else {
-          alert("Error!");
-        }
+        data.responseJSON === true ? this.setState({}) : alert("Error!")
       }.bind(this)
     });
   }
 
-  componentWillMount() {
+  componentWillMount = () => {
     $.getJSON( "/travel/getIsAdmin", ( data ) => {
       this.setState({ isAdmin: data });
     });
@@ -48,7 +49,7 @@ class AdminUsers extends Component {
     });
   }
 
-  sendBlockInfo(checkBoxValue, userId) {
+  sendBlockInfo = (checkBoxValue, userId) => {
     var dataToSend = {
       userId: userId,
       isBlocked: checkBoxValue === "on" ? true : false
@@ -59,16 +60,12 @@ class AdminUsers extends Component {
       dataType: 'json',
       data: dataToSend,
       complete: function(data) {
-        if (data.responseJSON === true) {
-          this.setState({});
-        } else {
-          alert("Error!");
-        }
+        data.responseJSON === true ? this.setState({}) : alert("Error!")
       }.bind(this)
     });
   }
 
-  getList() {
+  getList = () => {
     var output = this.state.data.map((user) =>
       <tr>
         <td> {user.userId} </td>
@@ -88,23 +85,22 @@ class AdminUsers extends Component {
     return (
       <div>
         <HeaderBar userId={this.state.isAdmin === true ? 1 : 0}/>
-        {this.state.isAdmin === true ?
-        <Table responsive>
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Name</th>
-              <th>Block</th>
-            </tr>
-          </thead>
-          <tbody>
-            {output}
-          </tbody>
-        </Table>
-        : (null)}
+        {
+          this.state.isAdmin === true &&
+            <Table responsive>
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Name</th>
+                  <th>Block</th>
+                </tr>
+              </thead>
+              <tbody>
+                {output}
+              </tbody>
+            </Table>
+        }
       </div>
     );
   }
-};
-
-export default AdminUsers
+}

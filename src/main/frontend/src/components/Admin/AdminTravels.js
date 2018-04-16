@@ -1,26 +1,30 @@
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import React, { Component } from 'react'
-import * as types from '../../constants/types'
-import './styles.css'
-import { HeaderBar } from '../'
 import $ from 'jquery'
 import { Form, FormGroup, ButtonGroup, Table, ControlLabel, Button, FormControl, Checkbox, Col} from 'react-bootstrap';
 
+import * as types from '../../constants/types'
+import './styles.css'
+import { HeaderBar } from '../'
 
-class AdminTravels extends Component {
+export default class AdminTravels extends Component {
+  state = {
+    data: [],
+    isAdmin: 0
+  }
+
   constructor(props) {
     super(props);
-    this.state = {data: [], isAdmin: 0};
 
     this.handleEdit = this.handleEdit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
 
-  handleEdit(travelId) {
+  handleEdit = (travelId) => {
     this.props.history.push("/admin/travel/" + travelId);
   }
 
-  handleDelete(data) {
+  handleDelete = (data) => {
     var sendData = {travelId: data.travelId};
     var dataToSend = {
       travelId: data.travelId
@@ -31,16 +35,12 @@ class AdminTravels extends Component {
       dataType: 'json',
       data: data,
       complete: function(data) {
-        if (data.responseJSON === true) {
-          this.setState({});
-        } else {
-          alert("Error!");
-        }
+        data.responseJSON === true ? this.setState({}) : alert("Error!")
       }.bind(this)
     });
   }
 
-  componentWillMount() {
+  componentWillMount = () => {
     $.getJSON( "/travel/getIsAdmin", ( data ) => {
       this.setState({ isAdmin: data });
     });
@@ -49,7 +49,7 @@ class AdminTravels extends Component {
     });
   }
 
-  getList() {
+  getList = () => {
     var output = this.state.data.map((travel) =>
       <tr>
         <td> {travel.travelId} </td>
@@ -69,23 +69,22 @@ class AdminTravels extends Component {
     return (
       <div>
         <HeaderBar userId={this.state.isAdmin === true ? 1 : 0}/>
-        {this.state.isAdmin === true ?
-        <Table responsive>
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>CityId</th>
-              <th>Edit</th>
-            </tr>
-          </thead>
-          <tbody>
-            {output}
-          </tbody>
-        </Table>
-        : (null)}
+        {
+          this.state.isAdmin === true &&
+            <Table responsive>
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>CityId</th>
+                  <th>Edit</th>
+                </tr>
+              </thead>
+              <tbody>
+                {output}
+              </tbody>
+            </Table>
+        }
       </div>
     );
   }
-};
-
-export default AdminTravels
+}

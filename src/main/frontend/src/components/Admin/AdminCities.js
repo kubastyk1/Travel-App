@@ -1,26 +1,30 @@
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import React, { Component } from 'react'
-import * as types from '../../constants/types'
-import './styles.css'
-import { HeaderBar } from '../'
 import $ from 'jquery'
 import { Form, FormGroup, ButtonGroup, ControlLabel, Button, FormControl, Checkbox, Col, Table} from 'react-bootstrap';
 
+import * as types from '../../constants/types'
+import './styles.css'
+import { HeaderBar } from '../'
 
-class AdminCities extends Component {
+export default class AdminCities extends Component {
+  state = {
+    data: [],
+    isAdmin: 0
+  }
+  
   constructor(props) {
     super(props);
-    this.state = {data: [], isAdmin: 0};
 
     this.handleEdit = this.handleEdit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
 
-  handleEdit(cityId) {
+  handleEdit = (cityId) => {
     this.props.history.push("/admin/city/" + cityId);
   }
 
-  handleDelete(data) {
+  handleDelete = (data) => {
     var sendData = {cityId: data.cityId};
     var dataToSend = {
       cityId: data.cityId
@@ -30,16 +34,12 @@ class AdminCities extends Component {
       type: 'POST',
       data: data,
       complete: function(data) {
-        if (data.responseJSON === true) {
-          this.setState({});
-        } else {
-          alert("Error!");
-        }
+        data.responseJSON === true ? this.setState({}) : alert("Error!")
       }.bind(this)
     });
   }
 
-  componentWillMount() {
+  componentWillMount = () => {
     $.getJSON( "/travel/getIsAdmin", ( data ) => {
       this.setState({ isAdmin: data });
     });
@@ -48,7 +48,7 @@ class AdminCities extends Component {
     });
   }
 
-  getList() {
+  getList = () => {
     var output = this.state.data.map((city) =>
       <tr>
         <td> {city.cityId} </td>
@@ -68,23 +68,22 @@ class AdminCities extends Component {
     return (
       <div>
         <HeaderBar userId={this.state.isAdmin === true ? 1 : 0}/>
-        {this.state.isAdmin === true ?
-          <Table responsive>
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Edit</th>
-              </tr>
-            </thead>
-            <tbody>
-              {output}
-            </tbody>
-          </Table>
-        : (null)}
+        {
+          this.state.isAdmin === true &&
+            <Table responsive>
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Name</th>
+                  <th>Edit</th>
+                </tr>
+              </thead>
+              <tbody>
+                {output}
+              </tbody>
+            </Table>
+        }
       </div>
     )
   }
-};
-
-export default AdminCities
+}
