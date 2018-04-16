@@ -1,13 +1,32 @@
-import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import $ from 'jquery'
+import { string, object, number, bool, array, oneOfType } from 'prop-types'
+
 import * as types from '../../constants/types'
 import './styles.css'
-import $ from 'jquery'
 
-class Place extends Component {
+export default class Place extends Component {
+
+  static propTypes = {
+    place: object,
+    style: object,
+    isSelectable: bool,
+    isPlaceWindow: bool
+  }
+
+  static defaultProps = {
+    isSelectable: true,
+    isPlaceWindow: false
+  }
 
   render() {
-    const { style, place, isSelectable, isPlaceWindow } = this.props;
+    const {
+      style,
+      place,
+      isSelectable,
+      isPlaceWindow
+    } = this.props
 
     return (
       <div className="col-sm-6 col-md-3">
@@ -28,6 +47,4 @@ class Place extends Component {
       </div>
     );
   };
-};
-
-export default Place
+}

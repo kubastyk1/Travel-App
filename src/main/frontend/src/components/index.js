@@ -1,5 +1,5 @@
 import Place from './Place/Place'
-import City from './City'
+import City from './City/City'
 import Filter from './Filter/Filter'
 import PlaceDetails from './PlaceDetails/PlaceDetails'
 import Stars from './Stars/Stars'
