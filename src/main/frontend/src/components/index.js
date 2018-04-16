@@ -1,4 +1,3 @@
-import Compare from './Compare'
 import Place from './Place/Place'
 import City from './City'
 import Filter from './Filter/Filter'
@@ -32,7 +31,6 @@ import AdminCommentEdit from './Admin/AdminCommentEdit'
 import AdminImageEdit from './Admin/AdminImageEdit'
 
 export {
-  Compare,
   Place,
   City,
   Filter,

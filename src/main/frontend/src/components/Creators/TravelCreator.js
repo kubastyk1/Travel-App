@@ -1,42 +1,40 @@
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import React, { Component } from 'react'
-import * as types from '../../constants/types'
-import './styles.css'
 import $ from 'jquery'
 import { Form, FormGroup, ButtonGroup, ControlLabel, Button, FormControl, Checkbox, Col} from 'react-bootstrap';
+
+import * as types from '../../constants/types'
+import './styles.css'
 import { HeaderBar } from '../'
 
 var cities = [];
-
-class PlaceCreator extends Component {
+export default class TravelCreator extends Component {
+  state = {
+    city: 1
+  }
 
   constructor(props) {
     super(props);
-    this.state = {city: 1};
     this.image = {};
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentWillMount() {
+  componentWillMount = () => {
     $.getJSON( "/travel/createTravel", ( data ) => {
       cities = data;
       this.setState();
     });
   }
 
-  handleSubmit(event) {
+  handleSubmit = (e) => {
     $.post( "/travel/createTravel", this.state, ( data ) => {
-      if (data === true) {
-        this.props.history.push("/home");
-      } else {
-        alert("Error!");
-      }
+      data === true ? this.props.history.push("/home") : alert("Error!")
     });
-    event.preventDefault();
+    e.preventDefault();
   }
 
-  setImage (imageUrl) {
+  setImage = (imageUrl) => {
     this.image = imageUrl;
   }
 
@@ -47,6 +45,7 @@ class PlaceCreator extends Component {
         options.push(<option value={city.cityId} key={index}>{city.name}</option>);
       }.bind(this));
     }
+
     return (
       <div>
         <HeaderBar />
@@ -56,7 +55,8 @@ class PlaceCreator extends Component {
               Select city
             </Col>
             <Col md={8}>
-              <FormControl componentClass="select" placeholder="City" onChange={(e) => this.setState({ city: e.target.value })}>
+              <FormControl componentClass="select" placeholder="City"
+                onChange={(e) => this.setState({ city: e.target.value })}>
                 {options}
               </FormControl>
             </Col>
@@ -67,7 +67,8 @@ class PlaceCreator extends Component {
               Date from
             </Col>
             <Col md={8}>
-              <input type="date" value={this.state.fromDate} onChange={(e) => this.setState({ fromDate: e.target.value })} required/>
+              <input type="date" value={this.state.fromDate}
+                onChange={(e) => this.setState({ fromDate: e.target.value })} required/>
             </Col>
           </FormGroup>
 
@@ -76,7 +77,8 @@ class PlaceCreator extends Component {
               Date to
             </Col>
             <Col md={8}>
-              <input type="date" value={this.state.toDate} onChange={(e) => this.setState({ toDate: e.target.value })} required/>
+              <input type="date" value={this.state.toDate}
+                onChange={(e) => this.setState({ toDate: e.target.value })} required/>
             </Col>
           </FormGroup>
 
@@ -91,6 +93,4 @@ class PlaceCreator extends Component {
       </div>
     );
   }
-};
-
-export default PlaceCreator
+}
