@@ -1,25 +1,34 @@
-import {Link} from 'react-router-dom'
-import React, { PropTypes } from 'react'
+import { Link } from 'react-router-dom'
+import React, { Component } from 'react'
+import { browserHistory } from 'react-router';
+import { Route, Switch } from 'react-router-dom'
+import { withRouter } from "react-router-dom";
+import { passwordHash } from "password-hash";
+import $ from 'jquery'
+import { string, object, number, bool, array, oneOfType } from 'prop-types'
+
 import * as types from '../../constants/types'
 import './styles.css'
-import $ from 'jquery'
 import { HeaderBar } from '../'
-import { browserHistory } from 'react-router';
-import {Route, Switch} from 'react-router-dom'
-import {withRouter} from "react-router-dom";
-import {passwordHash} from "password-hash";
 
-class Login extends React.Component {
+export default class Login extends Component {
+  state = {
+    userId: 0,
+    wrongPassword: false
+  }
+
+  static propTypes = {
+    userId: number
+  }
 
   constructor(props) {
     super(props);
-    this.state = {userId: 0, wrongPassword: false};
 
     this.handleRegisterSubmit = this.handleRegisterSubmit.bind(this);
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
   }
 
-  setActive(that, option) {
+  setActive = (that, option) => {
     switch (option) {
       case types.LOGIN:
           that.refs.loginLink.className = "active";
@@ -41,10 +50,11 @@ class Login extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentWillMount = () => {
         this.setState({ userId: this.props.userId });
   }
-  handleLoginSubmit(event) {
+
+  handleLoginSubmit = (e) => {
     var dataToSend = {
       name: this.state.name,
       password: this.state.password
@@ -61,25 +71,21 @@ class Login extends React.Component {
         this.logOffUser();
       }
     });
-    event.preventDefault();
+    e.preventDefault();
   }
 
-  handleRegisterSubmit(event) {
+  handleRegisterSubmit = (e) => {
     $.post( "/travel/register", this.state, ( data ) => {
-      if (data === true) {
-        this.props.history.push("/home");
-      } else {
-        alert("Error!");
-      }
+      data === true ? this.props.history.push("/home") : alert("Error!")
     });
-    event.preventDefault();
+    e.preventDefault();
   }
 
-  logOffUser(event) {
+  logOffUser = (e) => {
     $.post( "/travel/logoff", this.state);
   }
 
-  getLogInOutput() {
+  getLogInOutput = () => {
     var passwordHash = require('password-hash');
     var output = <div>
     <HeaderBar userId={this.props.userId}/>
@@ -97,10 +103,12 @@ class Login extends React.Component {
             <div className="col-lg-12">
               <form ref="loginForm" className="login-form" role="form"  onSubmit={this.handleLoginSubmit}>
                 <div className="form-group">
-                  <input type="text" name="username" tabIndex="1" className="form-control" placeholder="Username" onChange={(e) => this.setState({ name: e.target.value })} required/>
+                  <input type="text" name="username" tabIndex="1" className="form-control" placeholder="Username"
+                    onChange={(e) => this.setState({ name: e.target.value })} required/>
                 </div>
                 <div className="form-group">
-                  <input type="password" name="password" tabIndex="2" className="form-control" placeholder="Password" onChange={(e) => this.setState({ password: e.target.value })} required/>
+                  <input type="password" name="password" tabIndex="2" className="form-control" placeholder="Password"
+                    onChange={(e) => this.setState({ password: e.target.value })} required/>
                 </div>
                 {this.state.wrongPassword === true ? <p> Wrong username or password! </p> : (null)}
                 <div className="form-group">
@@ -110,13 +118,16 @@ class Login extends React.Component {
 
               <form ref="registerForm" className="register-form" role="form" onSubmit={this.handleRegisterSubmit}>
                 <div className="form-group">
-                  <input type="text" name="username" tabIndex="1" className="form-control" placeholder="Username" onChange={(e) => this.setState({ name: e.target.value })} required/>
+                  <input type="text" name="username" tabIndex="1" className="form-control" placeholder="Username"
+                    onChange={(e) => this.setState({ name: e.target.value })} required/>
                 </div>
                 <div className="form-group">
-                  <input type="email" name="email" tabIndex="1" className="form-control" placeholder="Email Address" onChange={(e) => this.setState({ email: e.target.value })} required/>
+                  <input type="email" name="email" tabIndex="1" className="form-control" placeholder="Email Address"
+                    onChange={(e) => this.setState({ email: e.target.value })} required/>
                 </div>
                 <div className="form-group">
-                  <input type="password" name="password" tabIndex="2" className="form-control" placeholder="Password" onChange={(e) => this.setState({ password: passwordHash.generate(e.target.value) })} required/>
+                  <input type="password" name="password" tabIndex="2" className="form-control" placeholder="Password"
+                    onChange={(e) => this.setState({ password: passwordHash.generate(e.target.value) })} required/>
                 </div>
                 <div className="form-group">
                   <input type="password" name="confirm-password" tabIndex="2" className="form-control" placeholder="Confirm Password" required/>
@@ -136,13 +147,13 @@ class Login extends React.Component {
     return output;
   }
 
-  getLogOffOutput() {
+  getLogOffOutput = () => {
     var output =
-    <div>
-      <HeaderBar userId={this.setState.userId}/>
-      <h4 className="logoff"> Logged off </h4>
-      <input type="submit" className="logoff-button" value="Log In"  onClick={() => this.setState({userId: 0})}/>
-    </div>
+      <div>
+        <HeaderBar userId={this.setState.userId}/>
+        <h4 className="logoff"> Logged off </h4>
+        <input type="submit" className="logoff-button" value="Log In"  onClick={() => this.setState({userId: 0})}/>
+      </div>
 
     return output;
   }
@@ -159,5 +170,3 @@ class Login extends React.Component {
     )
   }
 }
-
-export default withRouter(Login)
